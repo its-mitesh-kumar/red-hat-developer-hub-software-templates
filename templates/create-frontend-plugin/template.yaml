@@ -3,7 +3,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: create-frontend-plugin
-  title: Clean Frontend Plugin Template
+  title: Create Frontend Plugin Template
   description: Template for creating a fontend plugin
   tags:
     - frontend-plugin
@@ -12,10 +12,10 @@ spec:
   owner: janus-authors
   system: janus-idp
   type: plugin
-
-  # These parameters are used to generate the input form in the frontend, and are
-  # used to gather input data for the execution of the template.
-  parameters:
+ 
+# These parameters are used to generate the input form in the frontend, and are
+# used to gather input data for the execution of the template.
+ parameters:
   - title: Provide some information
     required:
       - plugin_id
@@ -46,6 +46,15 @@ spec:
         ui:options:
           allowedHosts:
             - github.com
+      is_existing_repo:
+        title: This is an Existing Repository
+        type: boolean
+        description: Select to use lombok
+        default: false
+        ui:autofocus: true
+        ui:options:
+          rows: 5
+        
 
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
@@ -61,18 +70,22 @@ spec:
         # description: ${{ parameters.description }}
         repoUrl: ${{ parameters.repoUrl | parseRepoUrl }}
         owner: ${{ parameters.owner }}
+        is_existing_repo: ${{ parameters.is_existing_repo }}
+        
 
-  # This step publishes the contents of the working directory to GitHub.
-  # - id: publish
-  #   name: Publish
-  #   action: publish:github
-  #   input:
-  #     allowedHosts: ["github.com"]
-  #     description: This is ${{ parameters.plugin_id }} frontend plugin.
-  #     repoUrl: ${{ parameters.repoUrl }}
+  #This step publishes the contents of the working directory to GitHub if .
+  - id: publish
+    name: Publish
+    if: ${{ parameters.is_existing_repo === false }}
+    action: publish:github
+    input:
+      allowedHosts: ["github.com"]
+      description: This is ${{ parameters.plugin_id }} frontend plugin.
+      repoUrl: ${{ parameters.repoUrl }}
 
   - id: create-pr
     name: Create pull request with the frontend plugin sample
+    if: ${{ parameters.is_existing_repo  === true }}
     action: github:repo:push
     input:
       # allowedHosts: ["github.com"]
