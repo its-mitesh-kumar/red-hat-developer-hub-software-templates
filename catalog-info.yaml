@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: red-hat-developer-hub-software-templates
+  annotations:
+    github.com/project-slug: its-mitesh-kumar/red-hat-developer-hub-software-templates
+spec:
+  type: other
+  lifecycle: unknown
+  owner: temp-team-a
