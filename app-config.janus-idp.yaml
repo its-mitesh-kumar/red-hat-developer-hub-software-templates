@@ -1,6 +1,6 @@
 dynamicPlugins:
   frontend:
-    janus-idp.backstage-plugin-pluging-test-6:
+    janus-idp.backstage-plugin-pluging-test-8:
       apiFactories: []
       appIcons: []
       dynamicRoutes: []
