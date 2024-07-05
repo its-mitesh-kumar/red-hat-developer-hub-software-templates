@@ -102,3 +102,5 @@ spec:
     links:
       - title: View Plugin
         url: ${{ steps.publish.output.remoteUrl }}
+      - title: View Pull Request
+        url: ${{ steps.create-pr.output.remoteUrl }}
