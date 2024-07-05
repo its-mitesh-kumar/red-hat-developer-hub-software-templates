@@ -63,22 +63,12 @@ spec:
         owner: ${{ parameters.owner }}
 
   # This step publishes the contents of the working directory to GitHub.
-  # - id: publish
-  #   name: Publish
-  #   action: publish:github
-  #   input:
-  #     allowedHosts: ["github.com"]
-  #     description: This is ${{ parameters.plugin_id }} frontend plugin.
-  #     repoUrl: ${{ parameters.repoUrl }}
-
-  - id: create-pr
-    name: Create pull request with the frontend plugin sample
-    action: github:repo:push
+  - id: publish
+    name: Publish
+    action: publish:github
     input:
-      # allowedHosts: ["github.com"]
-      requireCodeOwnerReviews: true
-      sourcePath: 'plugins'
-      # description: This is ${{ parameters.plugin_id }} frontend plugin.
+      allowedHosts: ["github.com"]
+      description: This is ${{ parameters.plugin_id }} frontend plugin.
       repoUrl: ${{ parameters.repoUrl }}
 
 # Outputs are displayed to the user after a successful execution of the template.

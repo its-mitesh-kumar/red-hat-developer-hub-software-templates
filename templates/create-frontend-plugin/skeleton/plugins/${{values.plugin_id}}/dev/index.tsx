@@ -3,11 +3,26 @@ import { createDevApp } from '@backstage/dev-utils';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import { plugin, PluginPage } from '../src/plugin';
 
+const mockedDiscoveryApi = {
+  getBaseUrl: async (_param: any) => {
+    return 'http://localhost:7007/api/proxy';
+  },
+};
+
 createDevApp()
   .registerPlugin(plugin)
   .addPage({
-    element: <PluginPage />,
-    title: 'Root Page',
+    element: 
+    (
+      <TestApiProvider
+        apis={[
+          [discoveryApiRef, mockedDiscoveryApi],
+        ]}
+      >
+       <PluginPage />
+      </TestApiProvider>
+    ),
+    title: '${{values.plugin_id}}',
     path: '/${{values.plugin_id}}',
     icon: () => <PermIdentityOutlinedIcon />
   })
