@@ -22,7 +22,7 @@ export const ExampleComponent = () => {
   return (
     <Page themeId="tool">
       <Header
-        title="Welcome to pluging-test-6"
+        title="Welcome to pluging-test-5"
         subtitle="Optional subtitle"
       >
         <HeaderLabel label="Owner" value="Team X" />

@@ -7,7 +7,7 @@ import {
 import { rootRouteRef } from './routes';
 
 export const plugin = createPlugin({
-  id: 'pluging-test-6',
+  id: 'pluging-test-5',
   routes: {
     root: rootRouteRef,
   },

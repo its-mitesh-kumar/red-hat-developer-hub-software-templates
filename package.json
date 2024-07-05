@@ -1,5 +1,5 @@
 {
-  "name": "@janus-idp/backstage-plugin-pluging-test-6",
+  "name": "@janus-idp/backstage-plugin-pluging-test-5",
   "version": "0.1.0",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -61,7 +61,7 @@
   "repository": {
     "type": "git",
     "url": "[object Object]",
-    "directory": "pluging-test-6"
+    "directory": "pluging-test-5"
   },
   "keywords": [
     "backstage",

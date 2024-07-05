@@ -8,7 +8,7 @@ createDevApp()
   .addPage({
     element: <PluginPage />,
     title: 'Root Page',
-    path: '/pluging-test-6',
+    path: '/pluging-test-5',
     icon: () => <PermIdentityOutlinedIcon />
   })
   .render();

@@ -2,7 +2,7 @@
   "extends": ["//"],
   "pipeline": {
     "tsc": {
-      "outputs": ["../../dist-types/plugins/pluging-test-6/**"],
+      "outputs": ["../../dist-types/plugins/pluging-test-5/**"],
       "dependsOn": ["^tsc"]
     }
   }

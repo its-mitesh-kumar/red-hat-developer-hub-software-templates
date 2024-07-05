@@ -22,6 +22,6 @@ describe('ExampleComponent', () => {
 
   it('should render', async () => {
     await renderInTestApp(<ExampleComponent />);
-    expect(screen.getByText('Welcome to pluging-test-6!')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to pluging-test-5!')).toBeInTheDocument();
   });
 });

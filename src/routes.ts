@@ -1,5 +1,5 @@
 import { createRouteRef } from '@backstage/core-plugin-api';
 
 export const rootRouteRef = createRouteRef({
-  id: 'pluging-test-6',
+  id: 'pluging-test-5',
 });

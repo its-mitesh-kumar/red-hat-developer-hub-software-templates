@@ -1,12 +1,12 @@
-# pluging-test-6
+# pluging-test-5
 
-Welcome to the pluging-test-6 plugin!
+Welcome to the pluging-test-5 plugin!
 
 _This plugin was created through the Software Template_
 
 ## Getting started
 
-Your sample frontend plugin has been created, meaning you'll be able to access it by running `yarn start` in the root directory, and then navigating to [/pluging-test-6](http://localhost:3000/pluging-test-6).
+Your sample frontend plugin has been created, meaning you'll be able to access it by running `yarn start` in the root directory, and then navigating to [/pluging-test-5](http://localhost:3000/pluging-test-5).
 
 You can also serve the plugin in isolation by running `yarn start` in the plugin directory.
 This method of serving the plugin provides quicker iteration speed and a faster startup and hot reloads.
