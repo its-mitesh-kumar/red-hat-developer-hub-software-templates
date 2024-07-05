@@ -1,0 +1,9 @@
+{
+  "extends": ["//"],
+  "pipeline": {
+    "tsc": {
+      "outputs": ["../../dist-types/plugins/pluging-test-6/**"],
+      "dependsOn": ["^tsc"]
+    }
+  }
+}
