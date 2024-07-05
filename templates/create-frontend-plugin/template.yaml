@@ -86,13 +86,16 @@ spec:
   - id: create-pr
     name: Create pull request with the frontend plugin sample
     if: ${{ parameters.is_existing_repo  === true }}
-    action: github:repo:push
+    action: publish:github:pull-request
     input:
       # allowedHosts: ["github.com"]
-      requireCodeOwnerReviews: true
-      sourcePath: 'plugins'
+      # requireCodeOwnerReviews: true
+      # sourcePath: 'plugins'
       # description: This is ${{ parameters.plugin_id }} frontend plugin.
       repoUrl: ${{ parameters.repoUrl }}
+      branchName: 'main'
+      title: Create front-end plugin ${{ parameters.plugin_id }}
+      description: This pull request creates the skeleton for your front-end plugin
 
 # Outputs are displayed to the user after a successful execution of the template.
   output:
