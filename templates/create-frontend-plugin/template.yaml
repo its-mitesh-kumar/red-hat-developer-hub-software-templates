@@ -16,91 +16,110 @@ spec:
 # These parameters are used to generate the input form in the frontend, and are
 # used to gather input data for the execution of the template.
   parameters:
-  - title: Provide some information
-    required:
-      - plugin_id
-    properties:
-      plugin_id:
-        title: Plugin ID
-        type: string
-        pattern: '^[a-z0-9-]*[a-z0-9]$'
-        description: Unique ID of the plugin.
-        ui:help: Plugin IDs must be lowercase and contain only letters, digits, and dashes.
-        ui:autofocus: true
-      # owner:
-      #   title: Owner
-      #   type: string
-      #   description: Owner of the plugin.  The owner must be a space separated list of team names (e.g. @org/team-name), usernames (e.g. @username), or the email addresses (e.g. user@example.com).
-      #   ui:field: OwnerPicker
-      #   ui:options:
-      #     allowedKinds:
-      #       - Group
-  - title: Choose a location
-    required:
-      - repoUrl
-    properties:
-      repoUrl:
-        title: Repository Location
-        type: string
-        ui:field: RepoUrlPicker
-        ui:options:
-          allowedHosts:
-            - github.com
-      is_existing_repo:
-        title: This is an Existing Repository
-        type: boolean
-        description: Select to use lombok
-        default: false
-        ui:autofocus: true
-        ui:options:
-          rows: 5
-        
+    - title: Provide some information
+      required:
+        - plugin_id
+      properties:
+        plugin_id:
+          title: Plugin ID
+          type: string
+          pattern: '^[a-z0-9-]*[a-z0-9]$'
+          description: Unique ID of the plugin.
+          ui:help: Plugin IDs must be lowercase and contain only letters, digits, and dashes.
+          ui:autofocus: true
+        # owner:
+        #   title: Owner
+        #   type: string
+        #   description: Owner of the plugin.  The owner must be a space separated list of team names (e.g. @org/team-name), usernames (e.g. @username), or the email addresses (e.g. user@example.com).
+        #   ui:field: OwnerPicker
+        #   ui:options:
+        #     allowedKinds:
+        #       - Group
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+        is_existing_repo:
+          title: This is an Existing Repository
+          type: boolean
+          description: Select if repository already exist
+          default: false
+          # ui:autofocus: true
+          # ui:options:
+          #   rows: 
+      dependencies:
+        is_existing_repo:
+          allOf:
+            - if:
+                properties:
+                  is_existing_repo:
+                    const: true
+              then:
+                properties:
+                  branchName:
+                    title: Branch Name
+                    type: string
+                    description: The name for the branch
+                    default: ''
+                  targetBranchName:
+                    title: Target Branch Name	
+                    type: string
+                    description: The target branch name of the merge request
+                    default: ''
+                # You can use additional fields of parameters within conditional parameters such as required.
+                required:
+                  - branchName
+                  - targetBranchName
+          
 
-  # These steps are executed in the scaffolder backend, using data that we gathered
-  # via the parameters above.
+    # These steps are executed in the scaffolder backend, using data that we gathered
+    # via the parameters above.
   steps:
-  # Each step executes an action, in this case one templates files into the working directory.
-  - id: template
-    name: Fetch Skeleton + Template
-    action: fetch:template
-    input:
-      url: ./skeleton
-      values:
-        plugin_id: ${{ parameters.plugin_id }}
-        # description: ${{ parameters.description }}
-        repoUrl: ${{ parameters.repoUrl | parseRepoUrl }}
-        owner: ${{ parameters.owner }}
-        is_existing_repo: ${{ parameters.is_existing_repo }}
-        
+    # Each step executes an action, in this case one templates files into the working directory.
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          plugin_id: ${{ parameters.plugin_id }}
+          # description: ${{ parameters.description }}
+          repoUrl: ${{ parameters.repoUrl | parseRepoUrl }}
+          owner: ${{ parameters.owner }}
+          
 
-  #This step publishes the contents of the working directory to GitHub if .
-  - id: publish
-    name: Publish
-    if: ${{ parameters.is_existing_repo === false }}
-    action: publish:github
-    input:
-      allowedHosts: ["github.com"]
-      description: This is ${{ parameters.plugin_id }} frontend plugin.
-      repoUrl: ${{ parameters.repoUrl }}
+    #This step publishes the contents of the working directory to GitHub if .
+    - id: publish
+      name: Publish
+      if: ${{ parameters.is_existing_repo === false }}
+      action: publish:github
+      input:
+        allowedHosts: ["github.com"]
+        description: This is ${{ parameters.plugin_id }} frontend plugin.
+        repoUrl: ${{ parameters.repoUrl }}
 
-  - id: create-pr
-    name: Create pull request with the frontend plugin sample
-    if: ${{ parameters.is_existing_repo  === true }}
-    action: publish:github:pull-request
-    input:
-      # allowedHosts: ["github.com"]
-      # requireCodeOwnerReviews: true
-      # sourcePath: 'plugins'
-      # description: This is ${{ parameters.plugin_id }} frontend plugin.
-      repoUrl: ${{ parameters.repoUrl }}
-      branchName: 'main'
-      title: Create front-end plugin ${{ parameters.plugin_id }}
-      description: This pull request creates the skeleton for your front-end plugin
+    - id: publishGithub
+      name: Create pull request with the frontend plugin sample
+      if: ${{ parameters.is_existing_repo  === true }}
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: ${{ parameters.branchName }}
+        targetBranchName: ${{ parameters.targetBranchName }}
+        title: Create front-end plugin ${{ parameters.plugin_id }}
+        description: This pull request creates the skeleton for your front-end plugin
 
-# Outputs are displayed to the user after a successful execution of the template.
+  # Outputs are displayed to the user after a successful execution of the template.
   output:
     links:
       - title: View Plugin
         url: ${{ steps.publish.output.remoteUrl }}
       - title: View Pull Request
-        url: ${{ steps.create-pr.output.remoteUrl }}
+        url: ${{ steps.publishGithub.output.remoteUrl }}
