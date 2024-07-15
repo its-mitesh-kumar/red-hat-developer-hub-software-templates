@@ -65,9 +65,9 @@ It is only meant for local development, and the setup for it can be found inside
     proxy:
     ...
     '/github':
-    target: 'https://api.github.com'
-    headers:
-        Authorization: 'token ${GITHUB_TOKEN}' 
+        target: 'https://api.github.com'
+        headers:
+            Authorization: 'token ${GITHUB_TOKEN}' 
     ```
 
 5. Start your application from the root directory, and then navigate to [/${{values.plugin_id}}](http://localhost:3000/${{values.plugin_id}}).
