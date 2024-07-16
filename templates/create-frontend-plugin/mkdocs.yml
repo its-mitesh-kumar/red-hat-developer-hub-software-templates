@@ -1,0 +1,12 @@
+site_name: "software-template"
+site_description: "User documentation for creating a front-end plugin"
+
+nav:
+  - Introduction: index.md
+  - Develop your Frontend Plugin with the following features:
+      - Guide to Consuming APIs in Your UI Components: features/api.md
+      - Guide to Enforce Access Controls in Your Front-end Plugin: features/rbac.md
+      - Guide to incorporate theme in your UI components: features/theme.md
+
+plugins:
+  - techdocs-core

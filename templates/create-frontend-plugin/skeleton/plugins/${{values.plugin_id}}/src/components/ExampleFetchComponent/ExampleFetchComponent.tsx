@@ -1,15 +1,15 @@
-import React from 'react';
-import useAsync from 'react-use/lib/useAsync';
+import React from "react";
+import useAsync from "react-use/lib/useAsync";
 import {
   Table,
   TableColumn,
   Progress,
   ResponseErrorPanel,
-} from '@backstage/core-components';
-import { discoveryApiRef, useApi } from '@backstage/core-plugin-api';
-import { Avatar, Chip } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
-import { getChipStyle } from '../../utils/getChipStyle';
+} from "@backstage/core-components";
+import { discoveryApiRef, useApi } from "@backstage/core-plugin-api";
+import { Avatar, Chip } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import { getChipStyle } from "../../utils/getChipStyle";
 
 type User = {
   repoUrl: string;
@@ -21,9 +21,9 @@ export const DenseTable = ({ users }: any) => {
   const theme = useTheme();
   const chipStyle = getChipStyle(theme);
   const columns: TableColumn[] = [
-    { title: 'GithubId', field: 'githubId' },
-    { title: 'Repository URL', field: 'repoUrl' },
-    { title: 'Type', field: 'type' },
+    { title: "GithubId", field: "githubId" },
+    { title: "Repository URL", field: "repoUrl" },
+    { title: "Type", field: "type" },
   ];
 
   const data = users.map((user: any) => {
@@ -54,7 +54,7 @@ export const DenseTable = ({ users }: any) => {
 
 export const ExampleFetchComponent = () => {
   const discoveryApi = useApi(discoveryApiRef);
-  const proxyURL = discoveryApi.getBaseUrl('proxy');
+  const proxyURL = discoveryApi.getBaseUrl("proxy");
 
   const { value, loading, error } = useAsync(async (): Promise<User[]> => {
     const res = await fetch(`${await proxyURL}/github/users`);
